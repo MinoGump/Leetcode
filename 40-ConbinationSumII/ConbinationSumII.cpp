@@ -26,7 +26,7 @@ public:
             return ;
         }
         for (int i = start; i < candidates.size(); i++) {
-            if (i > 0 && candidates[i] == candidates[i-1]) continue;
+            if (i > start && candidates[i] == candidates[i-1]) continue;
             item.push_back(candidates[i]);
             helper(candidates, i+1, target-candidates[i], item, res);
             item.pop_back();
