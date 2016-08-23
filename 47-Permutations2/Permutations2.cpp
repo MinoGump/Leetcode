@@ -8,28 +8,31 @@ using namespace std;
 
 class Solution {
 public:
-    void dfs(vector<vector<int> > &result, vector<int> &num, int start)
-    {
-        if(start >= num.size()) // >= ">"also should be put in, for the last ele.
-        {
-            result.push_back(num);
+    vector<vector<int> > permuteUnique(vector<int> &num) {
+        vector<vector<int> > allPer;
+        if(num.empty()) return allPer;
+        sort(num.begin(),num.end());
+        vector<int> per;
+        vector<bool> used(num.size(),false);
+        findPerUniq(num, used, per, allPer);
+        return allPer;
+    }
+    
+    void findPerUniq(vector<int> &num, vector<bool> &used, vector<int> &per, vector<vector<int> > &allPer) {
+        if(per.size()==num.size()) {
+            allPer.push_back(per);
             return;
         }
-        for(int i = start; i < num.size(); i++)
-        {
-            if(i != start && num[i] == num[i-1]) continue; //culling
-            std::swap(num[i], num[start]);
-            dfs(result, num, start+1);
-            std::swap(num[i], num[start]);
+        
+        for(int i=0; i<num.size(); i++) {
+            if(used[i]) continue;
+            if(i>0 && num[i]==num[i-1] && !used[i-1]) continue;
+            used[i] = true;
+            per.push_back(num[i]);
+            findPerUniq(num, used, per, allPer);
+            per.pop_back();
+            used[i] = false;
         }
-    }
-
-    vector<vector<int> > permuteUnique(vector<int> &num)
-    {
-        vector<vector<int> > result;
-        std::sort(num.begin(), num.end());
-        dfs(result, num, 0);
-        return vector<vector<int> >(result.begin(), result.end());
     }
 };
 
