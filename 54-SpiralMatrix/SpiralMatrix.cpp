@@ -38,7 +38,9 @@ int main() {
 	matrix.push_back(vector<int>(num[1], num[1] + 3));
 	matrix.push_back(vector<int>(num[2], num[2] + 3));
 	vector<int> result = s.spiralOrder(matrix);
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << " ";
+	}
 	cout << endl;
-	system("pause");
 	return 0;
 }
