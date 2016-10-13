@@ -8,6 +8,7 @@ class Solution {
     int uniquePathsWithObstacles(vector<vector<int> >& obstacleGrid) {
         if (obstacleGrid.size() == 0 || obstacleGrid[0].size() == 0) return 0;
         int *res = new int[obstacleGrid[0].size()];
+        for (int i = 0; i < obstacleGrid[0].size(); ++i) res[i] = 0;
         res[0] = 1;
         for (int i = 0; i < obstacleGrid.size(); ++i) {
             for (int j = 0; j < obstacleGrid[0].size(); ++j) {
