@@ -34,15 +34,19 @@ class Solution {
         for (char c : s) {
             Type currentType;
             if (c >= '0' && c <= '9') currentType = DIGIT;
-            else if (c == '.') currentType = DIGIT;
+            else if (c == '.') currentType = POINT;
             else if (c == 'e') currentType = E;
             else if (c == ' ') currentType = BLANK;
             else if (c == '-' || c == '+') currentType = SIGN;
             else return false;
             
+            // the state doesnt exist
+            map<Type, int>::iterator it;
+            it = states[currentState].find(currentType);
+            if (it == states[currentState].end()) return false;
+
             // change state
-            if (states[currentState][currentType]) currentState = states[currentState][currentType];
-            else return false; 
+            currentState = states[currentState][currentType];
         }
         
         if (currentState == 2 || currentState == 4 || currentState == 7 || currentState == 8) return true;
@@ -52,6 +56,6 @@ class Solution {
 
 int main() {
     Solution solution;
-    cout << solution.isValid("2.13e") << endl;
+    cout << solution.isValid("e9") << endl;
     return 0;
 }
